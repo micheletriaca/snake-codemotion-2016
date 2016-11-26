@@ -179,13 +179,13 @@ export default {
   .woow-enter-active {
     display: block;
     transform-origin: center center;
-    animation: bounce-in 1s;
+    animation: achievement-in 1s;
   }
   .woow-leave-active {
     display: none;
   }
 
-  @keyframes bounce-in {
+  @keyframes achievement-in {
     0% {
       transform: scale(0, 0);
       opacity: 1;
