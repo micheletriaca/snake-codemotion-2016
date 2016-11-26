@@ -15,6 +15,7 @@
       @keydown.39="direction = 'right'"
       @keydown.40="direction = 'bottom'"
       @keyup.enter="startGame"
+      @keyup="checkEaster($event)"
     >
       <template v-for="s in snakeChunks">
         <snake-chunk :position="s" :chunk-size="chunkSize"></snake-chunk>
@@ -52,7 +53,8 @@ export default {
       clock: undefined,
       chunkSize: 20,
       gameover: false,
-      easterEgg: false
+      easterEgg: false,
+      comboCodes: []
     }
   },
   computed: {
@@ -142,6 +144,11 @@ export default {
 
         this.prevDirection = this.direction
       }, 100)
+    },
+    checkEaster ($event) {
+      this.comboCodes.push($event.keyCode)
+      if (this.comboCodes.length > 6) this.comboCodes.shift()
+      this.easterEgg = this.comboCodes.join('') === '373737383940'
     }
   }
 }
