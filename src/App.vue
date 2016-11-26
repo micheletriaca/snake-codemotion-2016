@@ -154,7 +154,7 @@ export default {
     checkEaster ($event) {
       this.comboCodes.push($event.keyCode)
       if (this.comboCodes.length > 6) this.comboCodes.shift()
-      this.easterEgg = this.comboCodes.join('') === '373737383940'
+      this.easterEgg = this.easterEgg || this.comboCodes.join('') === '373737383940'
     }
   }
 }
