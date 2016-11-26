@@ -1,7 +1,7 @@
 <template>
   <div style="text-align: center">
     <transition name="woow" @after-enter="easterEgg = false">
-      <img class="achievement" src="/static/img/l_black.png" v-if="easterEgg" />
+      <img class="achievement" src="static/img/l_black.png" v-if="easterEgg" />
     </transition>
 
     <h1>Snake (invio per iniziare)</h1>
@@ -20,7 +20,7 @@
       <template v-for="s in snakeChunks">
         <snake-chunk :position="s" :chunk-size="chunkSize"></snake-chunk>
       </template>
-      <ball :position="ballPosition"></ball>
+      <ball :position="ballPosition" :chunk-size="chunkSize"></ball>
     </div>
     <h1 class="game-over" v-if="gameover">GAME OVER</h1>
   </div>
@@ -33,7 +33,7 @@ import _ from 'lodash'
 import Vue from 'vue'
 
 Vue.directive('focus', {
-  inserted: function (el) {
+  inserted (el) {
     el.focus()
   }
 })
@@ -180,9 +180,6 @@ export default {
     display: block;
     transform-origin: center center;
     animation: achievement-in 1s;
-  }
-  .woow-leave-active {
-    display: none;
   }
 
   @keyframes achievement-in {
