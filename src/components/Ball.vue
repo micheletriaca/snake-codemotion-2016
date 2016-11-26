@@ -21,6 +21,5 @@ export default {
     width: 20px;
     height: 20px;
     position: absolute;
-    transition: all 0.2s linear;
   }
 </style>

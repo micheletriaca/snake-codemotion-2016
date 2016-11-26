@@ -20,7 +20,9 @@
       <template v-for="s in snakeChunks">
         <snake-chunk :position="s" :chunk-size="chunkSize"></snake-chunk>
       </template>
-      <ball :position="ballPosition" :chunk-size="chunkSize"></ball>
+      <transition name="ball" @after-leave="placeBall">
+        <ball :position="ballPosition" :chunk-size="chunkSize" v-if="showBall"></ball>
+      </transition>
     </div>
     <h1 class="game-over" v-if="gameover">GAME OVER</h1>
   </div>
@@ -49,6 +51,7 @@ export default {
       snakeChunks: [],
       direction: 'right',
       prevDirection: 'right',
+      showBall: false,
       ballPosition: {},
       clock: undefined,
       chunkSize: 20,
@@ -77,6 +80,7 @@ export default {
         freePosition = !_.find(this.snakeChunks, {left: newPosition.x, top: newPosition.y})
       }
       this.ballPosition = newPosition
+      this.showBall = true
     },
     endGame () {
       clearInterval(this.clock)
@@ -84,6 +88,7 @@ export default {
     },
     startGame () {
       this.gameover = false
+      this.showBall = true
       this.direction = 'right'
       this.prevDirection = 'right'
 
@@ -118,7 +123,7 @@ export default {
 
         /* Se ho mangiato una pallina, non elimino la coda e riposiziono la pallina */
         if (head.left === this.ballPosition.x && head.top === this.ballPosition.y) {
-          this.placeBall()
+          this.showBall = false
         } else {
           /* Elimino ultimo elemento dalla coda. */
           this.snakeChunks.shift()
@@ -165,8 +170,8 @@ export default {
     width: 400px;
     height: 300px;
     border: 1px solid black;
-    overflow: hidden;
     display: inline-block;
+    overflow: hidden;
   }
 
   .game-over {
@@ -179,13 +184,18 @@ export default {
     top: 50%;
     width: 10px;
     height: 10px;
-    display: none;
   }
 
   .woow-enter-active {
     display: block;
     transform-origin: center center;
     animation: achievement-in 1s;
+  }
+
+  .ball-leave-active {
+    display: block;
+    transform-origin: center center;
+    animation: ball-out 0.2s;
   }
 
   @keyframes achievement-in {
@@ -195,6 +205,17 @@ export default {
     }
     100% {
       transform: scale(200, 200);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ball-out {
+    0% {
+      transform: scale(0, 0);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(5, 5);
       opacity: 0;
     }
   }
