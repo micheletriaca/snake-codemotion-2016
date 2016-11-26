@@ -14,5 +14,5 @@ npm run dev
 # build for production with minification
 npm run build
 ```
-
+Easter egg: click left + left + left + up + right + down :)
 
