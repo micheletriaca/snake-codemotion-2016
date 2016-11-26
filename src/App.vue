@@ -67,10 +67,16 @@ export default {
   },
   methods: {
     placeBall () {
-      this.ballPosition = {
-        x: Math.floor(Math.random() * (this.numStepsX - 1)) + 1,
-        y: Math.floor(Math.random() * (this.numStepsY - 1)) + 1
+      let freePosition = false
+      let newPosition
+      while (!freePosition) {
+        newPosition = {
+          x: Math.floor(Math.random() * (this.numStepsX - 1)) + 1,
+          y: Math.floor(Math.random() * (this.numStepsY - 1)) + 1
+        }
+        freePosition = !_.find(this.snakeChunks, {left: newPosition.x, top: newPosition.y})
       }
+      this.ballPosition = newPosition
     },
     endGame () {
       clearInterval(this.clock)
