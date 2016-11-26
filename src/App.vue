@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="text-align: center">
     <transition name="woow" @after-enter="easterEgg = false">
       <img class="achievement" src="/static/img/l_black.png" v-if="easterEgg" />
     </transition>
@@ -153,6 +153,7 @@ export default {
     height: 300px;
     border: 1px solid black;
     overflow: hidden;
+    display: inline-block;
   }
 
   .game-over {
